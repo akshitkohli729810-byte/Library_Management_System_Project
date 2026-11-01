@@ -1,0 +1,285 @@
+# LIBRARY MANAGEMENT SYSTEM
+## DBMS MINI PROJECT REPORT
+
+Submitted By: Akshit Kohli  
+Roll Number: 2419171  
+Class: CSE A  
+Subject: Database Management System (DBMS)  
+Software Used: MySQL Workbench  
+Database Name: LibraryDB
+
+---
+
+## 1. INTRODUCTION
+
+The Library Management System is a database project created using MySQL Workbench. The purpose of this project is to organize and manage library-related information, including student details, book records, and book issuing and returning activities.
+
+The database stores information about available books and keeps track of books borrowed by students. It helps reduce manual record-keeping and makes library operations easier, faster, and more organized.
+
+## 2. OBJECTIVES OF THE PROJECT
+
+The major objectives of developing this project are:
+
+- To develop a database for maintaining library records.
+- To store and manage student details.
+- To maintain book information and their available quantities.
+- To keep records of issued and returned books.
+- To identify books that are currently available.
+- To understand the use of primary keys and foreign keys.
+- To perform SQL operations using joins and aggregate functions.
+- To gain practical knowledge of database management.
+
+## 3. SOFTWARE AND TECHNOLOGIES USED
+
+| Component | Technology |
+|---|---|
+| DBMS | MySQL |
+| Database Tool | MySQL Workbench |
+| Query Language | SQL |
+| Operating System | Windows |
+| Code Repository | GitHub |
+
+## 4. DATABASE STRUCTURE
+
+The project uses a database named **LibraryDB**, which consists of three main tables. Each table stores a different category of information.
+
+### 4.1 Students Table
+
+The Students table contains the personal and academic details of students registered in the library.
+
+Columns:
+- Student_ID – Unique identification number of each student (Primary Key).
+- Student_Name – Full name of the student.
+- Department – Department in which the student studies.
+- Email – Student's email address.
+- Phone – Contact number of the student.
+
+### 4.2 Books Table
+
+The Books table maintains information about the books available in the library.
+
+Columns:
+- Book_ID – Unique identification number of each book (Primary Key).
+- Title – Name of the book.
+- Author – Name of the book's author.
+- Publisher – Publishing company.
+- Quantity – Total copies of the book.
+- Available_Quantity – Number of copies currently available.
+
+### 4.3 Book_Issue Table
+
+This table maintains records of books borrowed by students and their return status.
+
+Columns:
+- Issue_ID – Unique ID for every issue record (Primary Key).
+- Student_ID – Identifies the student borrowing the book (Foreign Key).
+- Book_ID – Identifies the borrowed book (Foreign Key).
+- Issue_Date – Date on which the book was issued.
+- Return_Date – Date of book return.
+- Status – Current condition of the issue record (Issued or Returned).
+
+## 5. DATABASE RELATIONSHIPS
+
+The project uses relationships between the three tables to connect student information with book records.
+
+The relationships are as follows:
+
+1. A single student can borrow multiple books, resulting in multiple issue records.
+2. A particular book can be issued to different students at different times.
+3. The Book_Issue table acts as a connecting table between Students and Books.
+
+Primary keys help identify individual records, whereas foreign keys establish connections between tables and maintain data consistency.
+
+## 6. SQL CONCEPTS IMPLEMENTED
+
+Different SQL concepts were applied while developing the database.
+
+### 6.1 DDL (Data Definition Language)
+
+DDL commands are used to create and define the database and its tables.
+
+Commands used:
+- CREATE DATABASE
+- CREATE TABLE
+
+### 6.2 DML (Data Manipulation Language)
+
+DML commands help insert new information and make changes to existing records.
+
+Commands used:
+- INSERT
+- UPDATE
+
+### 6.3 DQL (Data Query Language)
+
+The SELECT command is used to fetch information from the database according to specific requirements.
+
+### 6.4 Constraints
+
+Constraints help maintain accuracy and prevent invalid data from being stored.
+
+The following constraints are used:
+
+- PRIMARY KEY: Gives every record a unique identity.
+- FOREIGN KEY: Creates relationships between tables.
+- NOT NULL: Does not allow a column to contain NULL values.
+- UNIQUE: Prevents duplicate values, such as email addresses.
+- CHECK: Applies conditions to the values entered in a column.
+- AUTO_INCREMENT: Automatically generates ID numbers for new records.
+
+### 6.5 Aggregate Functions
+
+Aggregate functions are used to perform calculations on multiple records.
+
+- COUNT(): Finds the total number of records.
+- SUM(): Calculates the sum of numerical values, such as total book copies.
+
+### 6.6 SQL Joins
+
+Joins are useful when information is stored in different tables but needs to be displayed together.
+
+The project uses:
+
+- INNER JOIN: Displays matching records from related tables.
+- LEFT JOIN: Displays all records from the left table along with matching records from the right table.
+
+## 7. PROJECT IMPLEMENTATION
+
+The database was developed and tested using MySQL Workbench. The following steps were completed during implementation:
+
+1. Created a database named LibraryDB.
+2. Designed and created the Students, Books, and Book_Issue tables.
+3. Added five sample student records.
+4. Added ten sample book records.
+5. Inserted sample book-issuing information.
+6. Retrieved student and book details using SELECT queries.
+7. Checked the availability of books in the library.
+8. Used JOIN operations to display books borrowed by students.
+9. Applied COUNT() and SUM() functions to calculate database information.
+10. Updated records when books were issued or returned.
+
+## 8. SAMPLE SQL QUERIES
+
+Some important SQL queries executed in the project are shown below.
+
+1. Fetch all student records
+
+```sql
+SELECT * FROM Students;
+```
+
+2. Display all books stored in the database
+
+```sql
+SELECT * FROM Books;
+```
+
+3. Find books that are currently available**
+
+```sql
+SELECT *
+FROM Books
+WHERE Available_Quantity > 0;
+```
+
+4. Display books borrowed by a particular student**
+
+```sql
+SELECT
+    S.Student_Name,
+    B.Title,
+    B.Author,
+    I.Issue_Date,
+    I.Status
+FROM Book_Issue I
+INNER JOIN Students S
+ON I.Student_ID = S.Student_ID
+INNER JOIN Books B
+ON I.Book_ID = B.Book_ID
+WHERE S.Student_Name = 'Rahul Sharma';
+```
+
+5. Find the total number of students**
+
+```sql
+SELECT COUNT(*) AS Total_Students
+FROM Students;
+```
+
+6. Calculate the total number of book copies**
+
+```sql
+SELECT SUM(Quantity) AS Total_Books
+FROM Books;
+```
+
+## 9. CONNECTING THE DATABASE WITH A WEBSITE
+
+The Library Management System can also be connected to a website to make it accessible through a web interface.
+
+Technologies such as HTML, CSS, and JavaScript can be used to design the frontend. PHP, Python, or Java can be used on the backend to communicate with the MySQL database.
+
+For example, when a student searches for a particular book on the website, the backend sends an SQL query to MySQL. The database returns the matching records, which are then displayed on the website.
+
+This approach can make library services more convenient for both students and librarians.
+
+## 10. DISTRIBUTED DATABASE APPLICATION
+
+The same library management system can be extended to support multiple libraries located at different campuses of a university.
+
+For example, a university may have separate libraries at its Main Campus, Engineering Campus, and Medical Campus.
+
+Each campus can maintain its own library records while sharing important information with the other campuses.
+
+Some benefits of this approach are:
+
+- Students can check book availability at different campuses.
+- Books and library resources can be shared between locations.
+- Each campus can maintain its own records.
+- Data replication can help improve data availability.
+- Students can access library information from different locations.
+
+At present, this project uses a centralized MySQL database. However, its structure can be extended in the future to support a distributed database environment.
+
+## 11. ADVANTAGES OF THE SYSTEM
+
+The Library Management System provides several benefits:
+
+- Makes student record management easier.
+- Stores book information in an organized manner.
+- Helps users find available books quickly.
+- Keeps track of borrowed and returned books.
+- Reduces manual work and paperwork.
+- Maintains relationships between different records.
+- Allows information to be retrieved through simple SQL queries.
+
+## 12. FUTURE ENHANCEMENTS
+
+The existing project covers basic library operations. More features can be added to improve its functionality.
+
+Possible future improvements include:
+
+- Separate login accounts for students and librarians.
+- Online book booking and reservation.
+- Automatic reminders for return dates.
+- Calculation of fines for late book returns.
+- Development of a complete web-based application.
+- Support for multiple campus libraries.
+- Notifications about book availability.
+
+## 13. CONCLUSION
+
+The Library Management System was developed to understand and apply the basic concepts of Database Management Systems using MySQL Workbench.
+
+During the development of this project, different database operations were performed, including database and table creation, inserting records, updating information, and retrieving data through SQL queries.
+
+The project also demonstrates the practical use of primary keys, foreign keys, constraints, joins, and aggregate functions.
+
+Overall, this project helped in understanding how databases are designed and used to manage information in real-world applications. It also provides a basic foundation for developing larger systems involving website connectivity and distributed databases.
+
+---
+
+PROJECT SUBMITTED BY: Akshit Kohli  
+SUBJECT: Database Management System  
+PROJECT TITLE: Library Management System  
+SOFTWARE USED: MySQL Workbench
